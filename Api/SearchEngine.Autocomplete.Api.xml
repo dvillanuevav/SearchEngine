@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SearchEngine.Autocomplete.Api</name>
+    </assembly>
+    <members>
+        <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.SearchByMarketAsync(SearchEngine.Autocomplete.Api.Models.v1.SearchByMarketModel)">
+            <summary>
+            Search real estate entities coincidences by market(s) and keyword.
+            </summary>
+            <param name="model">Market(s), keyqord and pagination parameters.</param>
+            <returns>List of suggestions.</returns>
+        </member>
+        <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.CreateIndexAsync(System.Int32)">
+            <summary>
+            Index seed data into Elasticsearch.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
