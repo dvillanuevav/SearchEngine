@@ -90,7 +90,7 @@ Set up the the url for Elasticsearch at the `settings.json` and  run the project
 
 First, hit the endpoint `/api/v1/real-estate-entities/indices/{maxItems}` for indexing the data into Elasticseach from the json files within the folder `\Data`.
 
-> **maxItems**: Max number of items taking from each file.
+> **maxItems**: Max number of items taking from each file. Default 20000
 
 ### Searching
 
@@ -103,6 +103,87 @@ Second, hit the endpoint `/api/v1/real-estate-entities` passing the parameters d
 > **PageIndex**: Page number. Default 1
 >
 > **PageSize**: Results per page. Default 25
+
+#### Example
+
+Searching coincidences for keyword `Apartmemt and home` (With a typo, stopword and lowercase) and markets `San Antonio,  San Francisco, Austin and Los Angeles`.
+
+**Curl**
+```
+curl -X 'GET' \
+  'https://localhost:44367/api/v1/real-estate-entities?Keyword=Aparamemt%20and%20home&Markets=San%20Antonio&Markets=San%20Francisco&Markets=Austin&Markets=Los%20Angeles&PageIndex=1&PageSize=5' \
+  -H 'accept: text/plain'    
+```
+
+**Response**
+```
+{
+  "items": [
+    {
+      "id": 914681482,
+      "code": 77390,
+      "name": "Marquis at TPC",
+      "formerName": "CWS Apartment Homes",
+      "market": "San Antonio",
+      "state": "TX",
+      "city": "San Antonio",
+      "streetAddress": "5505 TPC Pkwy",
+      "type": 2
+    },
+    {
+      "id": -1048863447,
+      "code": 70218,
+      "name": "Trio",
+      "formerName": "Trio Apartment Homes",
+      "market": "Austin",
+      "state": "TX",
+      "city": "Austin",
+      "streetAddress": "2317 S. Pleasant Valley Rd",
+      "type": 2
+    },
+    {
+      "id": 180901547,
+      "code": 115383,
+      "name": "Tower Apartment Homes",
+      "formerName": "",
+      "market": "San Francisco",
+      "state": "CA",
+      "city": "Alameda",
+      "streetAddress": "2465 Shoreline Dr",
+      "type": 2
+    },
+    {
+      "id": -157938051,
+      "code": 70547,
+      "name": "Legacy Apartment Homes",
+      "formerName": "Legacy Apartment Homes",
+      "market": "San Antonio",
+      "state": "TX",
+      "city": "San Antonio",
+      "streetAddress": "11300 Roszell",
+      "type": 2
+    },
+    {
+      "id": -98283185,
+      "code": 238167,
+      "name": "Northgate Apartments | Apartment Homes Marin",
+      "formerName": "Northgate",
+      "market": "San Francisco",
+      "state": "CA",
+      "city": "San Rafael",
+      "streetAddress": "825 Las Gallinas Ave",
+      "type": 2
+    }
+  ],
+  "totalPages": 3,
+  "totalCount": 12,
+  "hasPreviousPage": false,
+  "hasNextPage": true,
+  "pageIndex": 1,
+  "pageSize": 5
+}
+```
+
 
 ## Other Alternatives
 
