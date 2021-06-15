@@ -46,7 +46,11 @@ var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
                )                           
            )
            .Tokenizers(to => to
-               .EdgeNGram("edge_ngram_tokenizer", ng => ng.MaxGram(15).MinGram(2).TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
+               .EdgeNGram("edge_ngram_tokenizer", 
+               ng => ng
+               .MaxGram(15)
+               .MinGram(2)
+               .TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
            )
            .TokenFilters(tk => tk
                .Stop("english_stop", sw => sw.IgnoreCase(true).StopWords("_english_"))
