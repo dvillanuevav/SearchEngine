@@ -61,7 +61,7 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]        
         [Route("indices/{maxItems}")]
         [HttpPost]
-        public async Task<ActionResult> CreateIndexAsync(int maxItems = 10000)
+        public async Task<ActionResult> CreateIndexAsync(int maxItems = 20000)
         {
             try
             {

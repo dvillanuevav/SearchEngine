@@ -122,7 +122,7 @@ namespace SearchEngine.Autocomplete.Api.Utils
 
                         yield return new RealEstateEntity
                         {
-                            Id = rootEntity.Item.Id,
+                            Code = rootEntity.Item.Id,
                             City = rootEntity.Item.City,
                             FormerName = rootEntity.Item.FormerName,
                             Market = rootEntity.Item.Market,
