@@ -44,7 +44,7 @@ namespace SearchEngine.Autocomplete.Api.Utils
                        .Analyzers(an => an
                            .Custom("autocomplete", ca => ca
                                .Tokenizer("edge_ngram_tokenizer")
-                               .Filters("lowercase")
+                               .Filters("english_stop", "lowercase")
                            )
                             .Custom("autocomplete_search", ca => ca                               
                                .Tokenizer("lowercase")
