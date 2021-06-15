@@ -52,8 +52,8 @@ namespace SearchEngine.Autocomplete.Api.Utils
                            )
                        )
                        .Tokenizers(to => to
-                           .EdgeNGram("edge_ngram_tokenizer", ng => 
-                           ng.MaxGram(30)
+                           .EdgeNGram("edge_ngram_tokenizer", ng => ng
+                           .MaxGram(30)
                            .MinGram(2)
                            .TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
                        )
