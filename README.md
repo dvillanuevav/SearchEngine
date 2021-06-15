@@ -29,11 +29,11 @@ This layer contains classes for accessing external resources such as file system
 
 #### Api
 
-This layer depends on the application layer and allows to consume the application logic through an API REST.
+This layer depends on the application layer and allows to consume the application logic through an REST API.
 
 ### Elasticsearch Index
 
-The `edge_ngram` tokenizer has been configured to treat letters and digits as tokens, and to produce grams with minimum length `2` and maximum length `30`. Also two analizers, one using the `edge_ngram` tokenizer at indexing time, to ensure that partial words are available for matching in the index and the another one at search time, just search for the terms the user has typed in.
+The `edge_ngram` tokenizer has been configured to treat letters and digits as tokens, and to produce grams with minimum length `2` and maximum length `30`. Also two analizers, the first one using the `edge_ngram` tokenizer at indexing time, to ensure that partial words are available for matching in the index and the second one at search time, just search for the terms the user has typed in.
 
 ```csharp
 var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
