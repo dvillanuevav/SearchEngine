@@ -46,7 +46,7 @@ namespace SearchEngine.Autocomplete.Api.Utils
                                .Tokenizer("edge_ngram_tokenizer")
                                .Filters("english_stop", "lowercase")
                            )
-                            .Custom("autocomplete_search", ca => ca                               
+                            .Custom("autocomplete_search", ca => ca
                                .Tokenizer("lowercase")
                                .Filters("english_stop")
                            )
@@ -90,11 +90,11 @@ namespace SearchEngine.Autocomplete.Api.Utils
                            .SearchAnalyzer("autocomplete_search")
                        )
                        .Keyword(t => t
-                           .Name(p => p.Market)                           
+                           .Name(p => p.Market)
                        )
                    )
                );
-                       
+
 
             var createIndexResponse = await _elasticClient.Indices.CreateAsync(createIndexDescriptor);
 
@@ -104,7 +104,7 @@ namespace SearchEngine.Autocomplete.Api.Utils
             }
 
             await BulkIndexAsync($"{FilesPath}/{ManagementFileName}", maxItems);
-            await BulkIndexAsync($"{FilesPath}/{PropertiesFileName}", maxItems);            
+            await BulkIndexAsync($"{FilesPath}/{PropertiesFileName}", maxItems);
         }
 
         public async Task DeleteIndexAsync()
@@ -117,26 +117,26 @@ namespace SearchEngine.Autocomplete.Api.Utils
             }
         }
 
-            private async Task BulkIndexAsync(string inputUrl, int maxItems)
-        {                    
+        private async Task BulkIndexAsync(string inputUrl, int maxItems)
+        {
             foreach (var batches in LoadDataFromFile(inputUrl).Take(maxItems).Batch(MaxBatch))
-            {                                
-                await _elasticClient.IndexManyAsync<RealEstateEntity>(batches, IndexName);                
+            {
+                await _elasticClient.IndexManyAsync<RealEstateEntity>(batches, IndexName);
             }
         }
 
         private IEnumerable<RealEstateEntity> LoadDataFromFile(string inputUrl)
-        {            
+        {
             using (StreamReader sr = new StreamReader(inputUrl))
             using (JsonTextReader reader = new JsonTextReader(sr))
             {
                 reader.SupportMultipleContent = true;
-                
+
                 var serializer = new JsonSerializer();
                 while (reader.Read())
                 {
                     if (reader.TokenType == JsonToken.StartObject)
-                    {                           
+                    {
                         var rootEntity = serializer.Deserialize<RootModel>(reader);
 
                         if (rootEntity.Item == null)
@@ -157,5 +157,5 @@ namespace SearchEngine.Autocomplete.Api.Utils
                 }
             }
         }
-    }   
+    }
 }
