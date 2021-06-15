@@ -33,22 +33,25 @@ This layer depends on the application layer and allows to consume the applicatio
 
 ### Elasticsearch Index
 
-The Edge N-gram tokenizer has been set up for considering letter and digit characters, also two filters, one for excluding english stop words (e.g. the, and, or, into) and the other one for allowing lower case.
+The `edge_ngram` tokenizer has been configured to treat letters and digits as tokens, and to produce grams with minimum length `2` and maximum length `30`. Also two analizers, one using the `edge_ngram` tokenizer at indexing time, to ensure that partial words are available for matching in the index and the another one at search time, just search for the terms the user has typed in.
 
 ```csharp
 var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
    .Settings(s => s
        .Analysis(a => a
            .Analyzers(an => an
-               .Custom("edge_ngram_analyzer", ca => ca
+               .Custom("autocomplete", ca => ca
                    .Tokenizer("edge_ngram_tokenizer")
-                   .Filters("english_stop", "lowercase")
-               )                           
+                   .Filters("lowercase")
+               )
+                .Custom("autocomplete_search", ca => ca                               
+                   .Tokenizer("lowercase")
+                   .Filters("english_stop")
+               )
            )
            .Tokenizers(to => to
-               .EdgeNGram("edge_ngram_tokenizer", 
-               ng => ng
-               .MaxGram(15)
+               .EdgeNGram("edge_ngram_tokenizer", ng => 
+               ng.MaxGram(30)
                .MinGram(2)
                .TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
            )
@@ -61,23 +64,28 @@ var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
        .Properties(props => props
            .Text(t => t
                .Name(p => p.Name)
-               .Analyzer("edge_ngram_analyzer")
+               .Analyzer("autocomplete")
+               .SearchAnalyzer("autocomplete_search")
            )
            .Text(t => t
                .Name(p => p.FormerName)
-               .Analyzer("edge_ngram_analyzer")
+               .Analyzer("autocomplete")
+               .SearchAnalyzer("autocomplete_search")
            )
            .Text(t => t
                .Name(p => p.State)
-               .Analyzer("edge_ngram_analyzer")                           
+               .Analyzer("autocomplete")
+               .SearchAnalyzer("autocomplete_search")
            )
            .Text(t => t
                .Name(p => p.City)
-               .Analyzer("edge_ngram_analyzer")
+               .Analyzer("autocomplete")
+               .SearchAnalyzer("autocomplete_search")
            )
            .Text(t => t
                .Name(p => p.StreetAddress)
-               .Analyzer("edge_ngram_analyzer")
+               .Analyzer("autocomplete")
+               .SearchAnalyzer("autocomplete_search")
            )
            .Keyword(t => t
                .Name(p => p.Market)                           
@@ -110,7 +118,7 @@ Second, hit the endpoint `/api/v1/real-estate-entities` passing the parameters d
 
 #### Example
 
-Searching coincidences for keyword `Apartmemt and home` (With a typo, stopword and lowercase) and markets `San Antonio,  San Francisco, Austin and Los Angeles`.
+Searching coincidences for keyword `Apartmemt and hom` (with a typo, stopword and lowercase) and markets `San Antonio,  San Francisco, Austin and Los Angeles`.
 
 **Curl**
 
@@ -122,11 +130,11 @@ curl -X 'GET' \
 
 **Response**
 
-```csharp
+```json
 {
   "items": [
     {
-      "id": 914681482,
+      "id": -1714990673,
       "code": 77390,
       "name": "Marquis at TPC",
       "formerName": "CWS Apartment Homes",
@@ -137,29 +145,7 @@ curl -X 'GET' \
       "type": 2
     },
     {
-      "id": -1048863447,
-      "code": 70218,
-      "name": "Trio",
-      "formerName": "Trio Apartment Homes",
-      "market": "Austin",
-      "state": "TX",
-      "city": "Austin",
-      "streetAddress": "2317 S. Pleasant Valley Rd",
-      "type": 2
-    },
-    {
-      "id": 180901547,
-      "code": 115383,
-      "name": "Tower Apartment Homes",
-      "formerName": "",
-      "market": "San Francisco",
-      "state": "CA",
-      "city": "Alameda",
-      "streetAddress": "2465 Shoreline Dr",
-      "type": 2
-    },
-    {
-      "id": -157938051,
+      "id": 201192595,
       "code": 70547,
       "name": "Legacy Apartment Homes",
       "formerName": "Legacy Apartment Homes",
@@ -170,19 +156,41 @@ curl -X 'GET' \
       "type": 2
     },
     {
-      "id": -98283185,
-      "code": 238167,
-      "name": "Northgate Apartments | Apartment Homes Marin",
-      "formerName": "Northgate",
+      "id": 1090513977,
+      "code": 115383,
+      "name": "Tower Apartment Homes",
+      "formerName": "",
+      "market": "San Francisco",
+      "state": "CA",
+      "city": "Alameda",
+      "streetAddress": "2465 Shoreline Dr",
+      "type": 2
+    },
+    {
+      "id": -359598365,
+      "code": 115960,
+      "name": "Portofino Apartment Homes",
+      "formerName": "",
+      "market": "San Francisco",
+      "state": "CA",
+      "city": "Pittsburg",
+      "streetAddress": "500 Loveridge Circle",
+      "type": 2
+    },
+    {
+      "id": 329272150,
+      "code": 120690,
+      "name": "Lincoln Villa | Apartment Homes Marin",
+      "formerName": "Lincoln Villa",
       "market": "San Francisco",
       "state": "CA",
       "city": "San Rafael",
-      "streetAddress": "825 Las Gallinas Ave",
+      "streetAddress": "1825 Lincoln Avenue",
       "type": 2
     }
   ],
-  "totalPages": 3,
-  "totalCount": 12,
+  "totalPages": 4,
+  "totalCount": 20,
   "hasPreviousPage": false,
   "hasNextPage": true,
   "pageIndex": 1,
