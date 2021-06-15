@@ -50,8 +50,8 @@ var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
                )
            )
            .Tokenizers(to => to
-               .EdgeNGram("edge_ngram_tokenizer", ng => 
-               ng.MaxGram(30)
+               .EdgeNGram("edge_ngram_tokenizer", ng => ng
+               .MaxGram(30)
                .MinGram(2)
                .TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
            )
@@ -124,7 +124,7 @@ Searching coincidences for keyword `Apartmemt and hom` (with a typo, stopword an
 
 ```
 curl -X 'GET' \
-  'https://localhost:44367/api/v1/real-estate-entities?Keyword=Aparamemt%20and%20home&Markets=San%20Antonio&Markets=San%20Francisco&Markets=Austin&Markets=Los%20Angeles&PageIndex=1&PageSize=5' \
+  'https://localhost:44367/api/v1/real-estate-entities?Keyword=Aparamemt%20and%20hom&Markets=San%20Antonio&Markets=San%20Francisco&Markets=Austin&Markets=Los%20Angeles&PageIndex=1&PageSize=5' \
   -H 'accept: text/plain'    
 ```
 
