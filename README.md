@@ -35,7 +35,7 @@ This layer depends on the application layer and allows to consume the applicatio
 
 The Edge N-gram tokenizer has been set up for considering letter and digit characters, also two filters, one for excluding english stop words (e.g. the, and, or, into) and the other one for allowing lower case.
 
-```
+```csharp
 var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
    .Settings(s => s
        .Analysis(a => a
@@ -109,6 +109,7 @@ Second, hit the endpoint `/api/v1/real-estate-entities` passing the parameters d
 Searching coincidences for keyword `Apartmemt and home` (With a typo, stopword and lowercase) and markets `San Antonio,  San Francisco, Austin and Los Angeles`.
 
 **Curl**
+
 ```
 curl -X 'GET' \
   'https://localhost:44367/api/v1/real-estate-entities?Keyword=Aparamemt%20and%20home&Markets=San%20Antonio&Markets=San%20Francisco&Markets=Austin&Markets=Los%20Angeles&PageIndex=1&PageSize=5' \
@@ -116,7 +117,8 @@ curl -X 'GET' \
 ```
 
 **Response**
-```
+
+```csharp
 {
   "items": [
     {
