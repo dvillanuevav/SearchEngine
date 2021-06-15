@@ -42,7 +42,7 @@ var createIndexDescriptor = new CreateIndexDescriptor(IndexName)
            .Analyzers(an => an
                .Custom("autocomplete", ca => ca
                    .Tokenizer("edge_ngram_tokenizer")
-                   .Filters("lowercase")
+                   .Filters("english_stop", "lowercase")
                )
                 .Custom("autocomplete_search", ca => ca                               
                    .Tokenizer("lowercase")
@@ -134,7 +134,7 @@ curl -X 'GET' \
 {
   "items": [
     {
-      "id": -1714990673,
+      "id": 1109280539,
       "code": 77390,
       "name": "Marquis at TPC",
       "formerName": "CWS Apartment Homes",
@@ -145,7 +145,29 @@ curl -X 'GET' \
       "type": 2
     },
     {
-      "id": 201192595,
+      "id": -1311096040,
+      "code": 238167,
+      "name": "Northgate Apartments | Apartment Homes Marin",
+      "formerName": "Northgate",
+      "market": "San Francisco",
+      "state": "CA",
+      "city": "San Rafael",
+      "streetAddress": "825 Las Gallinas Ave",
+      "type": 2
+    },
+    {
+      "id": 1635864624,
+      "code": 70218,
+      "name": "Trio",
+      "formerName": "Trio Apartment Homes",
+      "market": "Austin",
+      "state": "TX",
+      "city": "Austin",
+      "streetAddress": "2317 S. Pleasant Valley Rd",
+      "type": 2
+    },
+    {
+      "id": 437117683,
       "code": 70547,
       "name": "Legacy Apartment Homes",
       "formerName": "Legacy Apartment Homes",
@@ -156,41 +178,19 @@ curl -X 'GET' \
       "type": 2
     },
     {
-      "id": 1090513977,
-      "code": 115383,
-      "name": "Tower Apartment Homes",
-      "formerName": "",
-      "market": "San Francisco",
-      "state": "CA",
-      "city": "Alameda",
-      "streetAddress": "2465 Shoreline Dr",
-      "type": 2
-    },
-    {
-      "id": -359598365,
-      "code": 115960,
-      "name": "Portofino Apartment Homes",
-      "formerName": "",
-      "market": "San Francisco",
-      "state": "CA",
-      "city": "Pittsburg",
-      "streetAddress": "500 Loveridge Circle",
-      "type": 2
-    },
-    {
-      "id": 329272150,
-      "code": 120690,
-      "name": "Lincoln Villa | Apartment Homes Marin",
-      "formerName": "Lincoln Villa",
-      "market": "San Francisco",
-      "state": "CA",
-      "city": "San Rafael",
-      "streetAddress": "1825 Lincoln Avenue",
+      "id": -1669595940,
+      "code": 75023,
+      "name": "The Jewel",
+      "formerName": "Cobalt Apartment Homes",
+      "market": "Austin",
+      "state": "TX",
+      "city": "Austin",
+      "streetAddress": "1616 Royal Crest Dr",
       "type": 2
     }
   ],
-  "totalPages": 4,
-  "totalCount": 20,
+  "totalPages": 5,
+  "totalCount": 23,
   "hasPreviousPage": false,
   "hasNextPage": true,
   "pageIndex": 1,
