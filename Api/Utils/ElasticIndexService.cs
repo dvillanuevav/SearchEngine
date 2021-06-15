@@ -42,13 +42,20 @@ namespace SearchEngine.Autocomplete.Api.Utils
                .Settings(s => s
                    .Analysis(a => a
                        .Analyzers(an => an
-                           .Custom("edge_ngram_analyzer", ca => ca
+                           .Custom("autocomplete", ca => ca
                                .Tokenizer("edge_ngram_tokenizer")
-                               .Filters("english_stop", "lowercase")
-                           )                           
+                               .Filters("lowercase")
+                           )
+                            .Custom("autocomplete_search", ca => ca                               
+                               .Tokenizer("lowercase")
+                               .Filters("english_stop")
+                           )
                        )
                        .Tokenizers(to => to
-                           .EdgeNGram("edge_ngram_tokenizer", ng => ng.MaxGram(15).MinGram(2).TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
+                           .EdgeNGram("edge_ngram_tokenizer", ng => 
+                           ng.MaxGram(30)
+                           .MinGram(2)
+                           .TokenChars(new[] { TokenChar.Letter, TokenChar.Digit }))
                        )
                        .TokenFilters(tk => tk
                            .Stop("english_stop", sw => sw.IgnoreCase(true).StopWords("_english_"))
@@ -59,23 +66,28 @@ namespace SearchEngine.Autocomplete.Api.Utils
                    .Properties(props => props
                        .Text(t => t
                            .Name(p => p.Name)
-                           .Analyzer("edge_ngram_analyzer")
+                           .Analyzer("autocomplete")
+                           .SearchAnalyzer("autocomplete_search")
                        )
                        .Text(t => t
                            .Name(p => p.FormerName)
-                           .Analyzer("edge_ngram_analyzer")
+                           .Analyzer("autocomplete")
+                           .SearchAnalyzer("autocomplete_search")
                        )
                        .Text(t => t
                            .Name(p => p.State)
-                           .Analyzer("edge_ngram_analyzer")                           
+                           .Analyzer("autocomplete")
+                           .SearchAnalyzer("autocomplete_search")
                        )
                        .Text(t => t
                            .Name(p => p.City)
-                           .Analyzer("edge_ngram_analyzer")
+                           .Analyzer("autocomplete")
+                           .SearchAnalyzer("autocomplete_search")
                        )
                        .Text(t => t
                            .Name(p => p.StreetAddress)
-                           .Analyzer("edge_ngram_analyzer")
+                           .Analyzer("autocomplete")
+                           .SearchAnalyzer("autocomplete_search")
                        )
                        .Keyword(t => t
                            .Name(p => p.Market)                           
