@@ -74,5 +74,27 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Delete index in Elasticsearch.
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("indices")]
+        [HttpDelete]
+        public async Task<ActionResult> deleteIndexAsync()
+        {
+            try
+            {
+                await _elasticIndexService.DeleteIndexAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -8,6 +8,10 @@
     <DocumentationFile>C:\Users\daviv\source\repos\SearchEngine\Src\Autocomplete\Api\SearchEngine.Autocomplete.Api.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\daviv\source\repos\SearchEngine\Src\Autocomplete\Api\SearchEngine.Autocomplete.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Application\SearchEngine.Autocomplete.Application.csproj" />
     <ProjectReference Include="..\Infrastructure\SearchEngine.Autocomplete.Infrastructure.csproj" />

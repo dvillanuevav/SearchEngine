@@ -17,5 +17,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.deleteIndexAsync">
+            <summary>
+            Delete index in Elasticsearch.
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

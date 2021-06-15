@@ -95,7 +95,17 @@ namespace SearchEngine.Autocomplete.Api.Utils
             await BulkIndexAsync($"{FilesPath}/{PropertiesFileName}", maxItems);            
         }
 
-        private async Task BulkIndexAsync(string inputUrl, int maxItems)
+        public async Task DeleteIndexAsync()
+        {
+            var existsResponse = await _elasticClient.Indices.ExistsAsync(IndexName);
+
+            if (existsResponse.Exists)
+            {
+                await _elasticClient.Indices.DeleteAsync(IndexName);
+            }
+        }
+
+            private async Task BulkIndexAsync(string inputUrl, int maxItems)
         {                    
             foreach (var batches in LoadDataFromFile(inputUrl).Take(maxItems).Batch(MaxBatch))
             {                                
