@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace SearchEngine.Autocomplete.Api.Utils
+namespace SearchEngine.Autocomplete.Application.Models
 {
     public class RootModel
     {
@@ -43,9 +42,9 @@ namespace SearchEngine.Autocomplete.Api.Utils
         public int PropertyId { get; set; }
 
         [JsonIgnore]
-        public int Id 
+        public int Id
         {
-            get 
+            get
             {
                 return ManagementId == default(int) ? PropertyId : ManagementId;
             }

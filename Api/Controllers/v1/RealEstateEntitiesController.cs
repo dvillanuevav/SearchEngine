@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SearchEngine.Autocomplete.Api.Models.v1;
-using SearchEngine.Autocomplete.Api.Utils;
+using SearchEngine.Autocomplete.Application.Commands;
 using SearchEngine.Autocomplete.Application.Models;
 using SearchEngine.Autocomplete.Application.Queries;
 using SearchEngine.Autocomplete.Domain;
@@ -18,12 +18,9 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
     {        
         private readonly IMediator _mediator;
 
-        private readonly ElasticIndexService _elasticIndexService;
-
-        public RealEstateEntitiesController(IMediator mediator, ElasticIndexService elasticIndexService)
+        public RealEstateEntitiesController(IMediator mediator)
         {            
             _mediator = mediator;
-            _elasticIndexService = elasticIndexService;
         }
 
         /// <summary>
@@ -61,11 +58,14 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]        
         [Route("indices/{maxItems}")]
         [HttpPost]
-        public async Task<ActionResult> CreateIndexAsync(int maxItems = 20000)
+        public async Task<ActionResult> BulkIndexAsync(int maxItems = 20000)
         {
             try
             {
-                await _elasticIndexService.CreateIndexAsync(maxItems);
+                await _mediator.Send(new IndexRealEstateEntitiesCommand
+                {
+                    MaxItems = maxItems
+                });
 
                 return Ok();
             }
@@ -83,11 +83,11 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("indices")]
         [HttpDelete]
-        public async Task<ActionResult> deleteIndexAsync()
+        public async Task<ActionResult> DeleteIndexAsync()
         {
             try
             {
-                await _elasticIndexService.DeleteIndexAsync();
+                await _mediator.Send(new DeleteRealEstateEntitiesIndexCommand());
 
                 return Ok();
             }

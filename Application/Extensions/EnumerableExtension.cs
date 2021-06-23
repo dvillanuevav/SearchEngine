@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace SearchEngine.Autocomplete.Api.Utils
+namespace SearchEngine.Autocomplete.Application.Extensions
 {
-    public static class Extensions
+    public static class EnumerableExtension
     {
         public static IEnumerable<IEnumerable<TSource>> Batch<TSource>(
                   this IEnumerable<TSource> source, int size)

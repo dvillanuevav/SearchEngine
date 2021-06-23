@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SearchEngine.Autocomplete.Api.Utils;
 using SearchEngine.Autocomplete.Application;
 using SearchEngine.Autocomplete.Infrastructure;
 using System;
@@ -35,9 +34,7 @@ namespace SearchEngine.Autocomplete.Api
 
             services.AddApplication();
 
-            services.AddInfrastructure(Configuration);
-
-            services.AddTransient<ElasticIndexService>();          
+            services.AddInfrastructure(Configuration);            
            
             services.AddSwaggerGen(c =>
             {
