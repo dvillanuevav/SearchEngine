@@ -1,26 +1,20 @@
 ﻿using Nest;
-using Newtonsoft.Json;
-using SearchEngine.Autocomplete.Application.Commands;
-using SearchEngine.Autocomplete.Application.Extensions;
 using SearchEngine.Autocomplete.Application.Interfaces;
 using SearchEngine.Autocomplete.Application.Models;
 using SearchEngine.Autocomplete.Application.Queries;
 using SearchEngine.Autocomplete.Domain;
-using SearchEngine.Autocomplete.Domain.Enums;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SearchEngine.Autocomplete.Infrastructure.Services
 {
     public class RealEstateEntityService : IRealEstateEntityService
     {
-        private const string IndexName = "real-estate-entities";       
+        private const string IndexName = "real-estate-entities";
 
-        readonly IElasticClient _elasticClient;
+        private readonly IElasticClient _elasticClient;
 
         public RealEstateEntityService(IElasticClient elasticClient)
         {
@@ -98,7 +92,6 @@ namespace SearchEngine.Autocomplete.Infrastructure.Services
                    )
                );
 
-
             var createIndexResponse = await _elasticClient.Indices.CreateAsync(createIndexDescriptor);
 
             if (!createIndexResponse.IsValid)
@@ -125,7 +118,7 @@ namespace SearchEngine.Autocomplete.Infrastructure.Services
                 throw new Exception(deleteIndexResponse.DebugInformation);
             }
 
-            return deleteIndexResponse.IsValid;            
+            return deleteIndexResponse.IsValid;
         }
 
         public async Task<SearchResult<RealEstateEntity>> SearchByMarketAsync(SearchRealEstateEntitiesByMarketQuery request)
@@ -145,19 +138,19 @@ namespace SearchEngine.Autocomplete.Infrastructure.Services
                                                                     .Operator(Operator.And)
                                                                         .Fields(f => f
                                                                             .Fields(
-                                                                                f1 => f1.Name, 
+                                                                                f1 => f1.Name,
                                                                                 f2 => f2.FormerName,
-                                                                                f3 => f3.State, 
-                                                                                f4 => f4.City, 
-                                                                                f5 => f5.StreetAddress))                                                                        
+                                                                                f3 => f3.State,
+                                                                                f4 => f4.City,
+                                                                                f5 => f5.StreetAddress))
                                                                         .Fuzziness(Fuzziness.Auto)
                                                                 ) && q
                                                                 .Bool(bq => bq.Filter(filters))
-                                                            )                                                            
+                                                            )
                                                             .From(request.Offsset)
                                                             .Size(request.PageSize));
 
-            return new SearchResult<RealEstateEntity>(result.Documents, result.Total, request.PageIndex, request.PageSize);            
-        }      
+            return new SearchResult<RealEstateEntity>(result.Documents, result.Total, request.PageIndex, request.PageSize);
+        }
     }
 }

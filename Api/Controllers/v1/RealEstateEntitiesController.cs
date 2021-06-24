@@ -11,15 +11,15 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SearchEngine.Autocomplete.Api.Controllers.v1
-{    
+{
     [Route("api/v1/real-estate-entities")]
-    [ApiController]    
+    [ApiController]
     public class RealEstateEntitiesController : ControllerBase
-    {        
+    {
         private readonly IMediator _mediator;
 
         public RealEstateEntitiesController(IMediator mediator)
-        {            
+        {
             _mediator = mediator;
         }
 
@@ -31,7 +31,7 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
-        [Route("")]        
+        [Route("")]
         public async Task<ActionResult<SearchResult<RealEstateEntity>>> SearchByMarketAsync([FromQuery] SearchByMarketModel model)
         {
             try
@@ -41,7 +41,7 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
                     Keyword = model.Keyword,
                     Markets = model.Markets.ToList(),
                     PageIndex = model.PageIndex,
-                    PageSize  = model.PageSize
+                    PageSize = model.PageSize
                 });
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         /// </summary>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("indices/{maxItems}")]
         [HttpPost]
         public async Task<ActionResult> BulkIndexAsync(int maxItems = 20000)

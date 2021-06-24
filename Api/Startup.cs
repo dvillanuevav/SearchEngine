@@ -34,8 +34,8 @@ namespace SearchEngine.Autocomplete.Api
 
             services.AddApplication();
 
-            services.AddInfrastructure(Configuration);            
-           
+            services.AddInfrastructure(Configuration);
+
             services.AddSwaggerGen(c =>
             {
                 c.ResolveConflictingActions(descriptions =>
@@ -86,7 +86,7 @@ namespace SearchEngine.Autocomplete.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });            
-        }       
-    }       
+            });
+        }
+    }
 }

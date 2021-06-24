@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SearchEngine.Autocomplete.Domain.Enums
+﻿namespace SearchEngine.Autocomplete.Domain.Enums
 {
     public enum EntityTypeEnum
     {

@@ -1,23 +1,21 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
+using SearchEngine.Autocomplete.Application.Extensions;
+using SearchEngine.Autocomplete.Application.Interfaces;
 using SearchEngine.Autocomplete.Application.Models;
 using SearchEngine.Autocomplete.Domain;
 using SearchEngine.Autocomplete.Domain.Enums;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
-using SearchEngine.Autocomplete.Application.Extensions;
-using SearchEngine.Autocomplete.Application.Interfaces;
 
 namespace SearchEngine.Autocomplete.Application.Commands
 {
     public class IndexRealEstateEntitiesCommandHandler : IRequestHandler<IndexRealEstateEntitiesCommand, bool>
     {
-        private const string FilesPath = "Data";        
+        private const string FilesPath = "Data";
 
         private const int MaxBatch = 1000;
 
@@ -37,7 +35,7 @@ namespace SearchEngine.Autocomplete.Application.Commands
                 var files = Directory.GetFiles($"{FilesPath}").ToList();
 
                 foreach (string filePath in files)
-                {                
+                {
                     foreach (var batches in LoadDataFromFile(filePath).Take(request.MaxItems).Batch(MaxBatch))
                     {
                         await _realEstateEntityService.BulkIndexAsync(batches);
@@ -46,7 +44,7 @@ namespace SearchEngine.Autocomplete.Application.Commands
             }
 
             return response;
-        }       
+        }
 
         private IEnumerable<RealEstateEntity> LoadDataFromFile(string filePath)
         {

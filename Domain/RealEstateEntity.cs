@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SearchEngine.Autocomplete.Domain
+﻿namespace SearchEngine.Autocomplete.Domain
 {
     public class RealEstateEntity
     {

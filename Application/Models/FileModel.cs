@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SearchEngine.Autocomplete.Application.Models
 {
@@ -12,7 +9,6 @@ namespace SearchEngine.Autocomplete.Application.Models
 
         [JsonProperty("property")]
         public ItemModel Property { get; set; }
-
 
         [JsonIgnore]
         public ItemModel Item

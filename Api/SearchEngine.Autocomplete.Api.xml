@@ -11,7 +11,7 @@
             <param name="model">Market(s), keyqord and pagination parameters.</param>
             <returns>List of suggestions.</returns>
         </member>
-        <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.IndexDocumentsAsync(System.Int32)">
+        <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.BulkIndexAsync(System.Int32)">
             <summary>
             Index seed data into Elasticsearch.
             </summary>
