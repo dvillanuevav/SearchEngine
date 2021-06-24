@@ -51,7 +51,7 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Index seed data into Elasticsearch.
+        /// Bulk index seed data into Elasticsearch.
         /// </summary>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -76,7 +76,7 @@ namespace SearchEngine.Autocomplete.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Delete index in Elasticsearch.
+        /// Delete index from Elasticsearch.
         /// </summary>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]

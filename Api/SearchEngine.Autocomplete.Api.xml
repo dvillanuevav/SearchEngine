@@ -13,13 +13,13 @@
         </member>
         <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.BulkIndexAsync(System.Int32)">
             <summary>
-            Index seed data into Elasticsearch.
+            Bulk index seed data into Elasticsearch.
             </summary>
             <returns></returns>
         </member>
         <member name="M:SearchEngine.Autocomplete.Api.Controllers.v1.RealEstateEntitiesController.DeleteIndexAsync">
             <summary>
-            Delete index in Elasticsearch.
+            Delete index from Elasticsearch.
             </summary>
             <returns></returns>
         </member>
