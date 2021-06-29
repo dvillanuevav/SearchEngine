@@ -34,13 +34,17 @@ namespace SearchEngine.Autocomplete.Application.Commands
             {
                 var files = Directory.GetFiles($"{FilesPath}").ToList();
 
+                List<Task> bulkIndexTasks = new List<Task>();
+
                 foreach (string filePath in files)
                 {
                     foreach (var batches in LoadDataFromFile(filePath).Take(request.MaxItems).Batch(MaxBatch))
                     {
-                        await _realEstateEntityService.BulkIndexAsync(batches);
+                        bulkIndexTasks.Add(_realEstateEntityService.BulkIndexAsync(batches));
                     }
                 };
+
+                await Task.WhenAll(bulkIndexTasks);
             }
 
             return response;
