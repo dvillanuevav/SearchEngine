@@ -43,18 +43,7 @@ namespace SearchEngine.Autocomplete.Api
                     return descriptions.First();
                 });
 
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "Autocomplete Api",
-                    Description = "A simple API to demonstrate autocomplete feature over Elasticsearch",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "David Villanueva",
-                        Email = "daviva70@gmail.com",
-                        Url = new Uri("https://www.linkedin.com/in/dvillanuevav/")
-                    }
-                });
+                c.SwaggerDoc("v1", Configuration.GetSection("SwaggerApiInfo").Get<OpenApiInfo>());
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

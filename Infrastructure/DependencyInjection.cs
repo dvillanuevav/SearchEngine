@@ -11,7 +11,7 @@ namespace SearchEngine.Autocomplete.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var settings = new ConnectionSettings(new Uri(configuration["elasticsearch:url"]));
+            var settings = new ConnectionSettings(new Uri(configuration["Elasticsearch:url"]));
 
             var client = new ElasticClient(settings);
 
